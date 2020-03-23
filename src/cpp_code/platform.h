@@ -21,5 +21,7 @@
 
 
 #ifdef MOCOS_CPPYY
-#define HIDE_IMPLEMENTATIONS
+#define MOCOS_HIDE_IMPLEMENTATIONS true
+#else
+#define MOCOS_HIDE_IMPLEMENTATIONS false
 #endif
