@@ -13,6 +13,7 @@ from os import path
 # Python 3 only projects can skip this import
 from io import open
 import glob
+import sys
 
 here = path.abspath(path.dirname(__file__))
 
@@ -22,7 +23,8 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 # Precompile the cppyy module
 import subprocess
-subprocess.check_call(["make", "lib"], cwd="src/cpp_code")
+if not "--help" in sys.argv and ("install" in sys.argv or "build" in sys.argv):
+    subprocess.check_call(["make", "lib"], cwd="src/cpp_code")
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
