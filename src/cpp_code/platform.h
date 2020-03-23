@@ -19,3 +19,7 @@
 #define MOCOS_FORCE_INLINE inline
 #endif
 
+
+#ifdef MOCOS_CPPYY
+#define HIDE_IMPLEMENTATIONS
+#endif
