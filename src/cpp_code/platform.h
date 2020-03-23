@@ -1,3 +1,5 @@
+#pragma once
+
 // Note: __GNUC__ is defined by clang and gcc
 #ifdef __GNUC__
 #define MOCOS_IMPOSSIBLE(condition) if(condition) __builtin_unreachable();
