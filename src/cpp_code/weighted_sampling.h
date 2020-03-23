@@ -17,7 +17,7 @@ class Sampler final
     size_t current_count;
 
  public:
-    Sampler(const std::vector<double>& probabilities, size_t to_sample, double precision = 1.0, double beta_bias = 5.0);
+    Sampler(const std::vector<double>& probabilities, size_t to_sample, double precalculated_sum = 0.0, double beta_bias = 5.0);
 
     MOCOS_FORCE_INLINE size_t count() const { return current_count; };
 

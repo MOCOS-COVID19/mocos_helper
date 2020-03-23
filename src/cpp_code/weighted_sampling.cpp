@@ -1,10 +1,18 @@
 #include "weighted_sampling.h"
 
+static double inline sum(const std::vector<double>& V)
+{
+    double ret = 0.0;
+    for(std::vector<double>::const_iterator it = V.cbegin(); it != V.cend(); ++it)
+        ret += *it;
+    return ret;
+}
+
 Sampler::Sampler(const std::vector<double>& _probabilities, size_t to_sample, double _precision, double _beta_bias) :
 probabilities(_probabilities),
 idx(-1),
 to_sample_left(to_sample),
-precision(_precision),
+precision(_precision > 0.0 ? _precision : sum(_probabilities)),
 beta_bias(_beta_bias),
 confs_prob(0.0),
 chasing_prob(0.0)
