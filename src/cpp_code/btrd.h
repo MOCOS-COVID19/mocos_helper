@@ -15,13 +15,11 @@
 
 #pragma once
 
-#include "isoMath.h"
 #include <cstdlib>
 #include <cmath>
 #include <limits>
 
 
-namespace IsoSpec {
 
 typedef double RealType;
 typedef ssize_t IntType;
@@ -200,5 +198,3 @@ IntType boost_binomial_distribution_variate(IntType t_arg, RealType p_arg, std::
     else
         return result;
 }
-
-} // namespace IsoSpec
