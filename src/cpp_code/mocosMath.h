@@ -17,3 +17,4 @@ inline size_t rdvariate_binom(size_t tries, double succ_prob, std::mt19937& rgen
     return boost_binomial_distribution_variate(tries, succ_prob, rgen);
 }
 
+void mocos_seed(std::mt19937::result_type seed);
