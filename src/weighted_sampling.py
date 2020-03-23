@@ -1,5 +1,6 @@
 import pkg_resources
 import cppyy
+import random
 
 cppyy.cppdef(
 """
@@ -43,9 +44,34 @@ def sample_set(items, weights, to_sample):
 
     while sampler.advanceToNextConfiguration():
         what = items[sampler.index()]
-        for _ in range(sampler.count())
+        for _ in range(sampler.count()):
             yield what
 
+def split_list(L, howmuch):
+    '''Randomly splits L into two sublists, second containing howmuch elements,
+    and the first one the rest.
+
+    L is consumed in the process. Items returned are not in the original order.
+
+    Example: split_list([1,2,3,4,5,6,7,8,9,10], 3) may return:
+    ([8,1,2,10,9,5,4], [6,3,7])
+    '''
+    inverse = False
+    if len(L)/2 < howmuch:
+        inverse = True
+        howmuch - len(L) - howmuch
+        assert howmuch >= 0
+
+    ret = []
+    for _ in range(howmuch):
+        idx = random.randint(0, len(L)-1)
+        ret.append(L[idx])
+        L[idx] = L.pop()
+
+    if inverse:
+        return ret, L
+    else:
+        return L, ret
 
 if __name__ == "__main__":
     # Example usage
