@@ -34,7 +34,7 @@ setup(
     # There are some restrictions on what makes a valid project name
     # specification here:
     # https://packaging.python.org/specifications/core-metadata/#name
-    name='sampleproject',  # Required
+    name='mocos_helper',  # Required
 
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
@@ -42,12 +42,12 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.3.1',  # Required
+    version='0.0.1',  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
-    description='A sample Python project',  # Optional
+    description='Helper code for MOCOS-COVID19/modelling-ncov2019',  # Optional
 
     # This is an optional longer description of your project that represents
     # the body of text which users will see when they visit PyPI.
@@ -75,15 +75,15 @@ setup(
     #
     # This field corresponds to the "Home-Page" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
-    url='https://github.com/pypa/sampleproject',  # Optional
+    url='https://github.com/michalsta/mocos_helper',  # Optional
 
     # This should be your name or the name of the organization which owns the
     # project.
-    author='The Python Packaging Authority',  # Optional
+    author='Michał Startek, Mateusz Łącki',  # Optional
 
     # This should be a valid email address corresponding to the author listed
     # above.
-    author_email='pypa-dev@googlegroups.com',  # Optional
+    #author_email='',  # Optional
 
     # Classifiers help users find your project by categorizing it.
     #
@@ -93,11 +93,10 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 2 - Pre-Alpha',
 
         # Indicate who your project is intended for
-        'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
+        "Topic :: Scientific/Engineering :: Bio-Informatics",
 
         # Pick your license as you wish
         'License :: OSI Approved :: MIT License',
@@ -119,7 +118,7 @@ setup(
     # project page. What does your project relate to?
     #
     # Note that this is a string of words separated by whitespace, not a list.
-    keywords='sample setuptools development',  # Optional
+    keywords='covid-19 modelling',  # Optional
 
     # When your source code is in a subdirectory under the project root, e.g.
     # `src/`, it is necessary to specify the `package_dir` argument.
@@ -149,7 +148,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['peppercorn'],  # Optional
+    install_requires=['cppyy'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
@@ -159,26 +158,26 @@ setup(
     #
     # Similar to `install_requires` above, these must be valid existing
     # projects.
-    extras_require={  # Optional
-        'dev': ['check-manifest'],
-        'test': ['coverage'],
-    },
+    #extras_require={  # Optional
+    #    'dev': ['check-manifest'],
+    #    'test': ['coverage'],
+    #},
 
     # If there are data files included in your packages that need to be
     # installed, specify them here.
     #
     # If using Python 2.6 or earlier, then these have to be included in
     # MANIFEST.in as well.
-    package_data={  # Optional
-        'sample': ['package_data.dat'],
-    },
+    #package_data={  # Optional
+    #    'sample': ['package_data.dat'],
+    #},
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files
     #
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    data_files=[('my_data', ['data/data_file'])],  # Optional
+    #data_files=[('my_data', ['data/data_file'])],  # Optional
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
@@ -187,11 +186,11 @@ setup(
     #
     # For example, the following would provide a command called `sample` which
     # executes the function `main` from this package when invoked:
-    entry_points={  # Optional
-        'console_scripts': [
-            'sample=sample:main',
-        ],
-    },
+    #entry_points={  # Optional
+    #    'console_scripts': [
+    #        'sample=sample:main',
+    #    ],
+    #},
 
     # List additional URLs that are relevant to your project as a dict.
     #
@@ -202,10 +201,10 @@ setup(
     # issues, where the source is hosted, where to say thanks to the package
     # maintainers, and where to support the project financially. The key is
     # what's used to render the link text on PyPI.
-    project_urls={  # Optional
-        'Bug Reports': 'https://github.com/pypa/sampleproject/issues',
-        'Funding': 'https://donate.pypi.org',
-        'Say Thanks!': 'http://saythanks.io/to/example',
-        'Source': 'https://github.com/pypa/sampleproject/',
-    },
+    #project_urls={  # Optional
+    #    'Bug Reports': 'https://github.com/pypa/sampleproject/issues',
+    #    'Funding': 'https://donate.pypi.org',
+    #    'Say Thanks!': 'http://saythanks.io/to/example',
+    #    'Source': 'https://github.com/pypa/sampleproject/',
+    #},
 )
