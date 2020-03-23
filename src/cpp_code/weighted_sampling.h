@@ -24,7 +24,7 @@ class Sampler final
     MOCOS_FORCE_INLINE size_t index() const { return idx; };
 
     MOCOS_FORCE_INLINE bool advanceToNextConfiguration()
-    #if MOCOS_HIDE_IMPLEMENTATIONS
+    #if !MOCOS_HIDE_IMPLEMENTATIONS
     {
         /* This function will be used mainly in very small, tight loops, therefore it makes sense to
          * aggressively inline it, despite its seemingly large body.

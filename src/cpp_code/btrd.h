@@ -60,7 +60,7 @@ static const RealType btrd_binomial_table[10] = {
 // computes the correction factor for the Stirling approximation
 // for log(k!)
 RealType fc(IntType k)
-#if MOCOS_HIDE_IMPLEMENTATIONS
+#if !MOCOS_HIDE_IMPLEMENTATIONS
 {
     if(k < 10) return btrd_binomial_table[k];
     else {
@@ -75,7 +75,7 @@ RealType fc(IntType k)
 #endif
 
 IntType btrd(IntType _t, RealType p, IntType m, std::mt19937& urng = random_gen)
-#if MOCOS_HIDE_IMPLEMENTATIONS
+#if !MOCOS_HIDE_IMPLEMENTATIONS
 {
     using std::floor;
     using std::abs;
@@ -162,7 +162,7 @@ IntType btrd(IntType _t, RealType p, IntType m, std::mt19937& urng = random_gen)
 #endif
 
 IntType invert(IntType t, RealType p, std::mt19937& urng = random_gen)
-#if MOCOS_HIDE_IMPLEMENTATIONS
+#if !MOCOS_HIDE_IMPLEMENTATIONS
 {
     RealType q = 1 - p;
     RealType s = p / q;
@@ -195,7 +195,7 @@ IntType invert(IntType t, RealType p, std::mt19937& urng = random_gen)
 
 
 IntType boost_binomial_distribution_variate(IntType t_arg, RealType p_arg, std::mt19937& urng = random_gen)
-#if MOCOS_HIDE_IMPLEMENTATIONS
+#if !MOCOS_HIDE_IMPLEMENTATIONS
 {
     bool other_side = p_arg > 0.5;
     RealType fake_p = other_side ? 1.0 - p_arg : p_arg;
