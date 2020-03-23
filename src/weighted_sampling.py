@@ -36,6 +36,16 @@ def sample_with_replacement(weights, to_sample):
     while sampler.advanceToNextConfiguration():
         yield (sampler.index(), sampler.count())
 
+def sample_set(items, weights, to_sample):
+    if type(weights) != std.vector("double"):
+        weights = std.vector("double")(weights)
+    sampler = Sampler(weights, to_sample)
+
+    while sampler.advanceToNextConfiguration():
+        what = items[sampler.index()]
+        for _ in range(sampler.count())
+            yield what
+
 
 if __name__ == "__main__":
     # Example usage
