@@ -1,0 +1,7 @@
+include README.md
+include LICENCE
+include setup.py
+include src/*.py
+include src/cpp_code/*.cpp
+include src/cpp_code/*.h
+include src/cpp_code/Makefile
