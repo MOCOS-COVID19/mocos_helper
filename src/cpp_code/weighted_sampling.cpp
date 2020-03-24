@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "weighted_sampling.h"
 
 static double inline sum(const std::vector<double>& V)
@@ -108,4 +109,25 @@ size_t NonReplacingSampler::next()
     set(rnd, last_idx);
 
     return rnd;
+}
+
+
+std::vector<size_t> ShuffledSample(const std::vector<double>& probabilities, size_t to_sample)
+{
+    std::vector<size_t> ret;
+    ret.reserve(to_sample);
+
+    Sampler S(probabilities, to_sample);
+
+    while(S.advanceToNextConfiguration())
+    {
+        size_t count = S.count();
+        size_t index = S.index();
+        for(size_t ii = 0; ii<count; ii++)
+            ret.push_back(index);
+    }
+
+    std::shuffle(ret.begin(), ret.end(), random_gen);
+
+    return ret;
 }

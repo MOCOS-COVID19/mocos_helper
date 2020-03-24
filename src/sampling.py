@@ -14,7 +14,7 @@ pkg_resources.resource_filename("mocos_helper", "cpp_code/mocosMath.h")
 
 cppyy.load_library(pkg_resources.resource_filename("mocos_helper", "cpp_code/libMocosHelper.so"))
 
-from cppyy.gbl import Sampler, std
+from cppyy.gbl import Sampler, std, ShuffledSample
 
 def sample_with_replacement(weights, to_sample):
     '''Weighted sampling with replacement
@@ -36,6 +36,14 @@ def sample_with_replacement(weights, to_sample):
     sampler = Sampler(weights, to_sample)
     while sampler.advanceToNextConfiguration():
         yield (sampler.index(), sampler.count())
+
+
+def sample_with_replacement_shuffled(weights, to_sample):
+    if type(weights) != std.vector("double"):
+        weights = std.vector("double")(weights)
+
+    return ShuffledSample(weights, to_sample)
+
 
 def sample_set(items, weights, to_sample):
     if type(weights) != std.vector("double"):

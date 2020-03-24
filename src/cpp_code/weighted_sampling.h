@@ -42,3 +42,5 @@ class NonReplacingSampler final
 
     size_t next();
 };
+
+std::vector<size_t> ShuffledSample(const std::vector<double>& probabilities, size_t to_sample);
