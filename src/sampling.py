@@ -47,7 +47,7 @@ def sample_set(items, weights, to_sample):
         for _ in range(sampler.count()):
             yield what
 
-def split_list(L, howmuch):
+def randomly_split_list(L, howmuch):
     '''Randomly splits L into two sublists, second containing howmuch elements,
     and the first one the rest.
 
