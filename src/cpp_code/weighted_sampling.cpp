@@ -91,3 +91,21 @@ bool Sampler::advanceToNextConfiguration()
     };
 }
 
+
+
+NonReplacingSampler::NonReplacingSampler(size_t _n) :
+n(_n),
+last_idx(_n)
+{}
+
+
+size_t NonReplacingSampler::next()
+{
+    last_idx--;
+    std::uniform_int_distribution<size_t> unif(0, last_idx);
+    size_t rnd = unif(random_gen);
+
+    set(rnd, last_idx);
+
+    return rnd;
+}

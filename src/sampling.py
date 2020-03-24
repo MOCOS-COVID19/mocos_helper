@@ -51,7 +51,8 @@ def split_list(L, howmuch):
     '''Randomly splits L into two sublists, second containing howmuch elements,
     and the first one the rest.
 
-    L is consumed in the process. Items returned are not in the original order.
+    L is consumed in the process. The elements are placed on their lists in
+    undefined order.
 
     Example: split_list([1,2,3,4,5,6,7,8,9,10], 3) may return:
     ([8,1,2,10,9,5,4], [6,3,7])
@@ -72,6 +73,30 @@ def split_list(L, howmuch):
         return ret, L
     else:
         return L, ret
+
+def nonreplace_sample(iterable, howmany):
+    '''Perform sampling without replacement from iterable. Number of selected
+    elements is min(len(iterable), howmany). Example:
+
+    nonreplace_sample(range(10), 5) may return:
+    [4, 7, 2, 1, 9]'''
+
+    ret = []
+    iterator = iterable.__iter__()
+    try:
+        while len(ret) < howmany:
+            ret.append(next(iterator))
+    except StopIteration:
+        return ret
+
+    howmany -= 1
+
+    try:
+        while True:
+            x = next(iterator)
+            ret[random.randint(0, howmany)] = x
+    except StopIteration:
+        return ret
 
 if __name__ == "__main__":
     # Example usage

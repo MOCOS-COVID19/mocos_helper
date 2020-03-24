@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <unordered_map>
 #include "platform.h"
 #include "mocosMath.h"
 
@@ -24,4 +25,20 @@ class Sampler final
     MOCOS_FORCE_INLINE size_t index() const { return idx; };
 
     bool advanceToNextConfiguration();
+};
+
+
+class NonReplacingSampler final
+{
+    const size_t n;
+    size_t last_idx;
+    std::unordered_map<size_t, size_t> replacements;
+
+    MOCOS_FORCE_INLINE size_t get(size_t idx) { return replacements.count(idx) > 0 ? replacements[idx] : idx; };
+    MOCOS_FORCE_INLINE size_t set(size_t idx, size_t towhat) { return replacements[idx] = get(towhat); };
+
+ public:
+    NonReplacingSampler(size_t _n);
+
+    size_t next();
 };
