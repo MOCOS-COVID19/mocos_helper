@@ -22,9 +22,9 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 # Precompile the cppyy module
-import subprocess
-if not "--help" in sys.argv and ("install" in sys.argv or "build" in sys.argv):
-    subprocess.check_call(["make", "lib"], cwd="src/cpp_code")
+#import subprocess
+#if not "--help" in sys.argv and ("install" in sys.argv or "build" in sys.argv):
+#    subprocess.check_call(["make", "debuglib"], cwd="src/cpp_code")
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
@@ -49,7 +49,7 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.5',  # Required
+    version='0.0.6',  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
@@ -176,7 +176,7 @@ setup(
     # If using Python 2.6 or earlier, then these have to be included in
     # MANIFEST.in as well.
     package_data={  # Optional
-        'mocos_helper': ["cpp_code/*.h", "cpp_code/libMocosHelper.so"],
+        'mocos_helper': ["cpp_code/*"],
     },
 
     # Although 'package_data' is the preferred approach, in some case you may
