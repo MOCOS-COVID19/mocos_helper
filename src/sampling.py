@@ -6,10 +6,8 @@ cppyy.cppdef(
 """
 #define MOCOS_CPPYY
 #include "{0}"
-#include "{1}"
 """.format(
 pkg_resources.resource_filename("mocos_helper", "cpp_code/weighted_sampling.h"),
-pkg_resources.resource_filename("mocos_helper", "cpp_code/mocosMath.h")
 ))
 
 cppyy.load_library(pkg_resources.resource_filename("mocos_helper", "cpp_code/libMocosHelper.so"))
