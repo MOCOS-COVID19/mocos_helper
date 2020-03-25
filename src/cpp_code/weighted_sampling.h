@@ -4,7 +4,6 @@
 #include <vector>
 #include <unordered_map>
 #include "platform.h"
-#include "mocosMath.h"
 
 class Sampler final
 {
