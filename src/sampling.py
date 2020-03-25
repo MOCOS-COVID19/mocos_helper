@@ -75,7 +75,8 @@ def randomly_split_list(L, howmuch):
     for _ in range(howmuch):
         idx = random.randint(0, len(L)-1)
         ret.append(L[idx])
-        L[idx] = L.pop()
+        if idx < len(L)-1:
+            L[idx] = L.pop()
 
     if inverse:
         return ret, L
