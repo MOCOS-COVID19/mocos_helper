@@ -2,15 +2,20 @@ import pkg_resources
 import cppyy
 import random
 
-cppyy.cppdef(
-"""
-#define MOCOS_CPPYY
-#include "{0}"
-""".format(
-pkg_resources.resource_filename("mocos_helper", "cpp_code/weighted_sampling.h"),
-))
+import platform
 
-cppyy.load_library(pkg_resources.resource_filename("mocos_helper", "cpp_code/libMocosHelper.so"))
+if False:
+    cppyy.cppdef(
+    """
+    #define MOCOS_CPPYY
+    #include "{0}"
+    """.format(
+    pkg_resources.resource_filename("mocos_helper", "cpp_code/weighted_sampling.h"),
+    ))
+
+    cppyy.load_library(pkg_resources.resource_filename("mocos_helper", "cpp_code/libMocosHelper.so"))
+else:
+    cppyy.cppdef("""#include "{0}" """.format(pkg_resources.resource_filename("mocos_helper", "cpp_code/unity_build.cpp")))
 
 from cppyy.gbl import Sampler, std, ShuffledSample
 
