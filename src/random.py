@@ -38,8 +38,12 @@ def exponential(scale):
     # Following Numpy's parametrization by beta = 1.0/lambda
     return rand_exponential_beta(scale)
 
-def poisson(lam):
-    return rand_poisson(lam)
+def poisson(lam, size = None):
+    if size is None:
+        return rand_poisson(lam)
+    else:
+        assert size == 1
+        return [rand_poisson(lam)]
 
 def uniform(low, high):
     return rand_uniform(low, high)
