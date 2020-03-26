@@ -1,1 +1,1 @@
-from .sampling import *
+from .random import *
