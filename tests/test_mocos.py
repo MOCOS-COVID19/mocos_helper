@@ -29,6 +29,8 @@ MH.exponential(1.0)
 
 assert 0 <= MH.poisson(7.0)
 
+assert 3.7 <= MH.uniform(3.7, 5.6) <= 5.6
+
 print(list(S))
 print("All seems OK!")
 

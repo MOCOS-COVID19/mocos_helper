@@ -17,7 +17,8 @@ if False:
 else:
     cppyy.cppdef("""#include "{0}" """.format(pkg_resources.resource_filename("mocos_helper", "cpp_code/unity_build.cpp")))
 
-from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed, rand_stdunif, rand_lognormal, rand_exponential_beta, rand_poisson
+from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed, rand_stdunif, rand_lognormal, rand_exponential_beta, rand_poisson, \
+                      rand_uniform
 from cppyy.gbl import randint as cpp_randint
 from cppyy.gbl import rand_lognormal as cpp_lognormal
 
@@ -39,6 +40,9 @@ def exponential(scale):
 
 def poisson(lam):
     return rand_poisson(lam)
+
+def uniform(low, high):
+    return rand_uniform(low, high)
 
 def sample_with_replacement(weights, to_sample):
     '''Weighted sampling with replacement

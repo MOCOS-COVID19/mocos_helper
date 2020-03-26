@@ -55,3 +55,8 @@ int rand_poisson(double lambda)
 {
     return std::poisson_distribution<int>(lambda)(random_gen);
 }
+
+double rand_uniform(double low, double high)
+{
+    return std::uniform_real_distribution<double>(low, high)(random_gen);
+}
