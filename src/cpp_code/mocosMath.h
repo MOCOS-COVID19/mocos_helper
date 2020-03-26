@@ -35,7 +35,12 @@ int randint(int a, int b)
     return std::uniform_int_distribution<decltype(a)>(a, b)(random_gen);
 }
 
-double rand_std()
+double rand_stdunif()
 {
     return stdunif(random_gen);
+}
+
+double rand_lognormal(double mean, double stdev)
+{
+    return std::lognormal_distribution(mean, stdev)(random_gen);
 }
