@@ -50,3 +50,8 @@ double rand_exponential_beta(double beta)
 {
     return std::exponential_distribution<decltype(beta)>(1.0/beta)(random_gen);
 }
+
+int rand_poisson(double lambda)
+{
+    return std::poisson_distribution<int>(lambda)(random_gen);
+}

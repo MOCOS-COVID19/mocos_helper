@@ -27,6 +27,8 @@ assert 0.0 <= MH.rand() <= 1.0
 MH.lognormal(0.0, 1.0)
 MH.exponential(1.0)
 
+assert 0 <= MH.poisson(7.0)
+
 print(list(S))
 print("All seems OK!")
 
