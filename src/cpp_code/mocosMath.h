@@ -34,3 +34,8 @@ int randint(int a, int b)
 {
     return std::uniform_int_distribution<decltype(a)>(a, b)(random_gen);
 }
+
+double rand_std()
+{
+    return stdunif(random_gen);
+}

@@ -19,12 +19,16 @@ else:
 
 from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed
 from cppyy.gbl import randint as cpp_randint
+from cppyy.gbl import rand_std as cpp_rand
 
 def seed(seed):
     mocos_seed(int(seed))
 
 def randint(a, b):
     return cpp_randint(a, b)
+
+def rand():
+    return cpp_rand()
 
 def sample_with_replacement(weights, to_sample):
     '''Weighted sampling with replacement
