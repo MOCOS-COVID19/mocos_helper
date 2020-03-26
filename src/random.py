@@ -106,7 +106,7 @@ def randomly_split_list(L, howmuch):
     inverse = False
     if len(L)/2 < howmuch:
         inverse = True
-        howmuch - len(L) - howmuch
+        howmuch = len(L) - howmuch
         assert howmuch >= 0
 
     ret = []
