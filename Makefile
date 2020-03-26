@@ -10,3 +10,6 @@ cpywipe:
 pypywipe:
 	pypy3 -m pip uninstall -y mocos_helper; pypy3 -m pip uninstall -y mocos_helper; pypy3 -m pip uninstall -y mocos_helper || true
 wipe: cpywipe pypywipe
+twine: clean
+	python setup.py sdist
+	twine upload dist/mocos_helper*.tar.gz
