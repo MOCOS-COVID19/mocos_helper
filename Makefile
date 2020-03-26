@@ -1,4 +1,4 @@
-all: clean cpyinst pypyinst
+all: clean cpyinst
 cpyinst: cpywipe
 	python setup.py install --user
 pypyinst: pypywipe
