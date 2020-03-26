@@ -19,6 +19,8 @@ assert len(set(S)) == 30
 assert set(S).issubset(set(range(100)))
 
 S = MH.sample_with_replacement_shuffled([0.2, 0.6, 0.7, 0.3], 300)
+
+assert MH.randint(30, 70) in range(30, 71)
 print(list(S))
 print("All seems OK!")
 

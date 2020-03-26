@@ -18,9 +18,13 @@ else:
     cppyy.cppdef("""#include "{0}" """.format(pkg_resources.resource_filename("mocos_helper", "cpp_code/unity_build.cpp")))
 
 from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed
+from cppyy.gbl import randint as cpp_randint
 
 def seed(seed):
     mocos_seed(int(seed))
+
+def randint(a, b):
+    return cpp_randint(a, b)
 
 def sample_with_replacement(weights, to_sample):
     '''Weighted sampling with replacement
