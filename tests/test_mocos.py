@@ -31,6 +31,10 @@ assert 0 <= MH.poisson(7.0)
 
 assert 3.7 <= MH.uniform(3.7, 5.6) <= 5.6
 
+S = list(MH.sample_idxes_with_replacement_uniform(1000, 1003))
+assert len(S) == len(set(S))
+assert set(S).issubset(set(range(1000)))
+
 print(list(S))
 print("All seems OK!")
 

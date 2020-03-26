@@ -18,7 +18,7 @@ else:
     cppyy.cppdef("""#include "{0}" """.format(pkg_resources.resource_filename("mocos_helper", "cpp_code/unity_build.cpp")))
 
 from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed, rand_stdunif, rand_lognormal, rand_exponential_beta, rand_poisson, \
-                      rand_uniform, NonReplacingSampler
+                      rand_uniform, NonReplacingSampler, OnesVector
 from cppyy.gbl import randint as cpp_randint
 from cppyy.gbl import rand_lognormal as cpp_lognormal
 
@@ -65,6 +65,13 @@ def sample_with_replacement(weights, to_sample):
     while sampler.advanceToNextConfiguration():
         yield (sampler.index(), sampler.count())
 
+def sample_idxes_with_replacement_uniform(idx_range, to_sample):
+    V = OnesVector(idx_range)
+
+    S = Sampler(V, to_sample, float(idx_range))
+
+    while S.advanceToNextConfiguration():
+        yield S.index()
 
 def sample_with_replacement_shuffled(weights, to_sample):
     if type(weights) != std.vector("double"):

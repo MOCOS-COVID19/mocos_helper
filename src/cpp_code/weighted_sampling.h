@@ -43,3 +43,12 @@ class NonReplacingSampler final
 };
 
 std::vector<size_t> ShuffledSample(const std::vector<double>& probabilities, size_t to_sample);
+
+std::vector<double> OnesVector(size_t size)
+{
+    std::vector<double> ret;
+    ret.reserve(size);
+    for(size_t ii=0; ii<size; ii++)
+        ret.push_back(1.0);
+    return ret;
+}
