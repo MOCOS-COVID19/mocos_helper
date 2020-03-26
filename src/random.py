@@ -125,7 +125,11 @@ def nonreplace_sample(iterable, howmany):
     elements is min(len(iterable), howmany). Example:
 
     nonreplace_sample(range(10), 5) may return:
-    [4, 7, 2, 1, 9]'''
+    [4, 7, 2, 1, 9]
+
+    Runs in O(len(iterable)), so use this function only when len(iterable) is 
+    comparable to howmany, and nonreplace_sample_few otherwise. Unlike
+    nonreplace_sample_few this function can accept a generator.'''
 
     ret = []
     iterator = iterable.__iter__()
@@ -135,16 +139,27 @@ def nonreplace_sample(iterable, howmany):
     except StopIteration:
         return ret
 
-    howmany -= 1
 
     try:
         while True:
             x = next(iterator)
-            ret[randint(0, howmany)] = x
+            idx = randint(0, howmany)
+            if idx < len(ret):
+                ret[idx] = x
+            howmany += 1
     except StopIteration:
         return ret
 
 def nonreplace_sample_few(indexable, howmany, avoid = None):
+    '''Perform sampling without replacement from iterable. Number of selected
+    elements is howmany, and will throw IndexError if howmany > len(indexable).
+
+    nonreplace_sample(list(range(10)), 5) may return:
+    [4, 7, 2, 1, 9]
+
+    Runs in O(howmany), and is preferable to nonreplace_sample unless you have
+    a generator that you need to sample from.
+    '''
     ret = []
     N = len(indexable)
     NRS = NonReplacingSampler(N)
