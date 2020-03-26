@@ -1,6 +1,5 @@
 import pkg_resources
 import cppyy
-import random
 
 import platform
 
@@ -111,7 +110,7 @@ def randomly_split_list(L, howmuch):
 
     ret = []
     for _ in range(howmuch):
-        idx = random.randint(0, len(L)-1)
+        idx = randint(0, len(L)-1)
         ret.append(L[idx])
         L[idx] = L[-1]
         L.pop()
@@ -141,7 +140,7 @@ def nonreplace_sample(iterable, howmany):
     try:
         while True:
             x = next(iterator)
-            ret[random.randint(0, howmany)] = x
+            ret[randint(0, howmany)] = x
     except StopIteration:
         return ret
 
