@@ -17,7 +17,10 @@ if False:
 else:
     cppyy.cppdef("""#include "{0}" """.format(pkg_resources.resource_filename("mocos_helper", "cpp_code/unity_build.cpp")))
 
-from cppyy.gbl import Sampler, std, ShuffledSample
+from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed
+
+def seed(seed):
+    mocos_seed(int(seed))
 
 def sample_with_replacement(weights, to_sample):
     '''Weighted sampling with replacement
