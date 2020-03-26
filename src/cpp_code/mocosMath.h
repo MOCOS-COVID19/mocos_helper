@@ -60,3 +60,8 @@ double rand_uniform(double low, double high)
 {
     return std::uniform_real_distribution<double>(low, high)(random_gen);
 }
+
+double rand_gamma(double alpha, double beta)
+{
+    return std::gamma_distribution<double>(alpha, beta)(random_gen);
+}
