@@ -42,5 +42,11 @@ double rand_stdunif()
 
 double rand_lognormal(double mean, double stdev)
 {
-    return std::lognormal_distribution(mean, stdev)(random_gen);
+    return std::lognormal_distribution<decltype(mean)>(mean, stdev)(random_gen);
+}
+
+double rand_exponential_beta(double beta)
+// Exponential random variate, following Numpy's ridiculous parametrization by beta=1.0/lambda
+{
+    return std::exponential_distribution<decltype(beta)>(1.0/beta)(random_gen);
 }
