@@ -67,6 +67,10 @@ args = [([0.01]*100, 300), ([0.01]*100, 20), ([0.01]*100, 30000), (plist, 10), (
 
 check_distributions(d1, d2, args)
 
+d1 = lambda probs, size: MH.sample_with_replacement_shuffled(probs, size)
+
+check_distributions(d1, d2, args)
+
 
 print("All seems OK!")
 
