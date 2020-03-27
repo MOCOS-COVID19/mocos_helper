@@ -42,10 +42,14 @@ assert set(S).issubset(set(range(1000)))
 import scipy.stats
 import numpy.random
 
-def check_distributions(f1, f2, argss):
+def check_distributions(f1, f2, argss, same_length = True):
     for args in argss:
         for _ in range(10):
-            x = scipy.stats.ks_2samp(list(f1(*args)), list(f2(*args)))
+            L1 = list(f1(*args))
+            L2 = list(f2(*args))
+            if same_length:
+                assert len(L1) == len(L2)
+            x = scipy.stats.ks_2samp(L1, L2)
             print(x.pvalue)
             assert x.pvalue > 0.0005
 
@@ -78,12 +82,12 @@ check_distributions(d1, d2, args)
 d1 = lambda idx_range, to_sample: list(MH.sample_idxes_with_replacement_uniform(len(idx_range), to_sample))
 d2 = lambda idx_range, to_sample: numpy.random.choice(list(range(len(idx_range))), size=to_sample)
 
-check_distributions(d1, d2, args)
+check_distributions(d1, d2, args, same_length = False)
 
 d1 = lambda idx_range, to_sample: list(MH.sample_idxes_with_replacement_uniform(len(idx_range), to_sample))
 d2 = lambda idx_range, to_sample: set(numpy.random.choice(list(range(len(idx_range))), size=to_sample))
 
-check_distributions(d1, d2, args)
+check_distributions(d1, d2, args, same_length = False)
 
 d1 = lambda probs, to_sample: list(MH.sample_set(list(range(len(probs))), probs, to_sample))
 d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), p = probs, size=to_sample)
@@ -101,6 +105,18 @@ d1 = lambda probs, to_sample: MH.nonreplace_sample_few(list(range(len(probs))), 
 d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), size=to_sample, replace=False)
 
 check_distributions(d1, d2, args)
+
+d1 = lambda probs, to_sample: MH.randomly_split_list(list(range(len(probs))), to_sample)[1]
+d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), size=to_sample, replace=False)
+
+check_distributions(d1, d2, args)
+
+d1 = lambda probs, to_sample: MH.randomly_split_list(list(range(len(probs))), to_sample)[0]
+d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), size=len(probs) - to_sample, replace=False)
+
+check_distributions(d1, d2, args)
+
+
 
 print("All seems OK!")
 
