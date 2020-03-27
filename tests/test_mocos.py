@@ -80,7 +80,15 @@ d2 = lambda idx_range, to_sample: numpy.random.choice(list(range(len(idx_range))
 
 check_distributions(d1, d2, args)
 
+d1 = lambda idx_range, to_sample: list(MH.sample_idxes_with_replacement_uniform(len(idx_range), to_sample))
+d2 = lambda idx_range, to_sample: set(numpy.random.choice(list(range(len(idx_range))), size=to_sample))
 
+check_distributions(d1, d2, args)
+
+d1 = lambda probs, to_sample: list(MH.sample_set(list(range(len(probs))), probs, to_sample))
+d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), p = probs, size=to_sample)
+
+check_distributions(d1, d2, args)
 
 
 print("All seems OK!")
