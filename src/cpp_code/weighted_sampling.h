@@ -34,7 +34,7 @@ class NonReplacingSampler final
     std::unordered_map<size_t, size_t> replacements;
 
     MOCOS_FORCE_INLINE size_t get(size_t idx) { return replacements.count(idx) > 0 ? replacements[idx] : idx; };
-    MOCOS_FORCE_INLINE void set(size_t idx, size_t towhat) { replacements[idx] = get(towhat); };
+    MOCOS_FORCE_INLINE size_t set(size_t idx, size_t towhat) { return replacements[idx] = towhat; };
 
  public:
     NonReplacingSampler(size_t _n);

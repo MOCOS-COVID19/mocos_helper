@@ -106,9 +106,11 @@ size_t NonReplacingSampler::next()
     std::uniform_int_distribution<size_t> unif(0, last_idx);
     size_t rnd = unif(random_gen);
 
-    set(rnd, last_idx);
+    size_t ret = get(rnd);
 
-    return rnd;
+    set(rnd, get(last_idx));
+
+    return ret;
 }
 
 
