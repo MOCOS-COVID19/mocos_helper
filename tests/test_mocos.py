@@ -90,6 +90,17 @@ d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), p = p
 
 check_distributions(d1, d2, args)
 
+args = [([0.0001]*10000, 300), ([0.0001]*10000, 20), ([0.0001]*10000, 8000), (plist, 10), (plist, 100), (plist, 700)]
+
+d1 = lambda probs, to_sample: MH.nonreplace_sample(list(range(len(probs))), to_sample)
+d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), size=to_sample, replace=False)
+
+check_distributions(d1, d2, args)
+
+d1 = lambda probs, to_sample: MH.nonreplace_sample_few(list(range(len(probs))), to_sample)
+d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), size=to_sample, replace=False)
+
+check_distributions(d1, d2, args)
 
 print("All seems OK!")
 
