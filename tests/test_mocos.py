@@ -41,6 +41,7 @@ assert set(S).issubset(set(range(1000)))
 
 import scipy.stats
 import numpy.random
+import random
 
 def check_distributions(f1, f2, argss, same_length = True):
     for args in argss:
@@ -116,7 +117,90 @@ d2 = lambda probs, to_sample: numpy.random.choice(list(range(len(probs))), size=
 
 check_distributions(d1, d2, args)
 
+print("Checking random variate generators")
 
+def check_rgvs(rvg1, rvg2, argss):
+    for args in argss:
+        for _ in range(10):
+            L1 = [rvg1(*args) for _ in range(10000)]
+            L2 = [rvg2(*args) for _ in range(10000)]
+            x = scipy.stats.ks_2samp(L1, L2)
+            print(x.pvalue)
+            assert x.pvalue > 0.0005
+
+
+args = [()]
+
+d1 = MH.rand
+d2 = random.random
+
+args = [(0.0, 1.0), (0.3, 17.5), (1000.0, 1000000.0)]
+
+d1 = MH.uniform
+d2 = random.uniform
+
+check_rgvs(d1, d2, args)
+
+args = [(0.0, 1.0), (0.3, 17.5), (10.0, 0.3), (10.0, 20.0)]
+
+d1 = MH.lognormal
+d2 = numpy.random.lognormal
+
+check_rgvs(d1, d2, args)
+
+d1 = MH.exponential
+d2 = numpy.random.exponential
+
+check_rgvs(d1, d2, [(x[1],) for x in args])
+
+d1 = MH.gamma
+d2 = numpy.random.gamma
+
+check_rgvs(d1, d2, args)
+
+d1 = MH.poisson
+d2 = numpy.random.poisson
+
+check_rgvs(d1, d2, [(x[1],) for x in args])
+
+print("Checking scipy distributions")
+
+def check_rgvs_scipy(rvg1, rvg2, argss):
+    for args in argss:
+        for _ in range(10):
+            L1 = [rvg1(*args) for _ in range(10000)]
+            scipy_rvg = rvg2(a = args[0], loc = 0.0, scale = args[1])
+            L2 = scipy_rvg.rvs(size=10000)
+            x = scipy.stats.ks_2samp(L1, L2)
+            print(x.pvalue)
+            assert x.pvalue > 0.0005
+
+args = [(0.1, 1.0), (0.3, 17.5), (10.0, 0.3), (10.0, 20.0)]
+
+d1 = MH.gamma
+d2 = scipy.stats.gamma
+
+check_rgvs_scipy(d1, d2, args)
+
+from math import log
+
+def check_rgvs_scipy(rvg1, rvg2, argss):
+    for args in argss:
+        scale = args[0]
+        logscale = log(scale)
+        sigma = args[1]
+        for _ in range(10):
+            L1 = [rvg1(mean=logscale, sigma=sigma) for _ in range(10000)]
+            scipy_rvg = rvg2(sigma, loc = 0.0, scale = scale)
+            L2 = scipy_rvg.rvs(size=10000)
+            x = scipy.stats.ks_2samp(L1, L2)
+            print(x.pvalue)
+            assert x.pvalue > 0.0005
+
+d1 = MH.lognormal
+d2 = scipy.stats.lognorm
+
+check_rgvs_scipy(d1, d2, args)
 
 print("All seems OK!")
 
