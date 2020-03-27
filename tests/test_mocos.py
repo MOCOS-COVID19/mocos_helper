@@ -60,6 +60,10 @@ def unpack_sample(L):
 d1 = lambda probs, size: unpack_sample(MH.sample_with_replacement(probs, size))
 d2 = lambda probs, size: numpy.random.choice(len(probs), size = size, p = probs)
 
+
+def const_list(length):
+    return [1.0/length] * length
+
 plist = [float(x) for x in range(1000)]
 s = sum(plist)
 plist = [x/s for x in plist]
@@ -70,6 +74,13 @@ check_distributions(d1, d2, args)
 d1 = lambda probs, size: MH.sample_with_replacement_shuffled(probs, size)
 
 check_distributions(d1, d2, args)
+
+d1 = lambda idx_range, to_sample: list(MH.sample_idxes_with_replacement_uniform(len(idx_range), to_sample))
+d2 = lambda idx_range, to_sample: numpy.random.choice(list(range(len(idx_range))), size=to_sample)
+
+check_distributions(d1, d2, args)
+
+
 
 
 print("All seems OK!")
