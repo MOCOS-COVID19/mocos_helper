@@ -120,6 +120,22 @@ def randomly_split_list(L, howmuch):
     else:
         return L, ret
 
+def extract_random(L):
+    '''Extract a random element from L, and return it. L will be reordered to keep this fast.
+
+    Raises ValueError if L is empty.'''
+    if len(L) == 0:
+        raise ValueError
+
+    idx = cpp_randint(0, len(L)-1)
+
+    ret = L[idx]
+    L[idx] = L[-1]
+    L.pop()
+
+    return ret
+
+
 def nonreplace_sample(iterable, howmany):
     '''Perform sampling without replacement from iterable. Number of selected
     elements is min(len(iterable), howmany). Example:

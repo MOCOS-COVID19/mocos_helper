@@ -202,5 +202,9 @@ d2 = scipy.stats.lognorm
 
 check_rgvs_scipy(d1, d2, args)
 
+L = list(range(10))
+print(MH.extract_random(L))
+print(L)
+
 print("All seems OK!")
 

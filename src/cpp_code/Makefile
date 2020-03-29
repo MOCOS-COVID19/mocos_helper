@@ -10,3 +10,5 @@ check-cppyy:
 	$(CXX) -fsyntax-only -DMOCOS_CPPYY -Wall -Wextra -pedantic -Wshadow unity_build.cpp
 clean:
 	rm libMocosHelper.so
+test: *.cpp
+	$(CXX) -Wall -Wextra -pedantic -Wshadow -O0 -g -D_GLIBCXX_DEBUG_PEDANTIC -D_GLIBCXX_DEBUG test.cpp -o test
