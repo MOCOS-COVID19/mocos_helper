@@ -18,11 +18,12 @@
 #include <cstdlib>
 #include <cmath>
 #include <limits>
+#include <cstdint>
 
 
 
 typedef double RealType;
-typedef ssize_t IntType;
+typedef std::int_fast64_t IntType;
 
 
 static const RealType btrd_binomial_table[10] = {
