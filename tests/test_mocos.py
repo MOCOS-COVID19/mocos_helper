@@ -80,6 +80,14 @@ d1 = lambda probs, size: MH.sample_with_replacement_shuffled(probs, size)
 
 check_distributions(d1, d2, args)
 
+def sample_walker(probs, size):
+    AS = MH.AliasSampler(probs)
+    return [AS.gen() for _ in range(size)]
+
+d1 = sample_walker
+
+check_distributions(d1, d2, args)
+
 d1 = lambda idx_range, to_sample: list(MH.sample_idxes_with_replacement_uniform(len(idx_range), to_sample))
 d2 = lambda idx_range, to_sample: numpy.random.choice(list(range(len(idx_range))), size=to_sample)
 

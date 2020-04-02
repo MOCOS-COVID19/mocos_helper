@@ -93,6 +93,72 @@ bool Sampler::advanceToNextConfiguration()
 }
 
 
+AliasSampler::AliasSampler(const std::vector<double>& weights, double precalculated_sum) : 
+len(weights.size()),
+alias_probs(new double[len]),
+alias_idxes(new size_t[len]),
+UIgen(std::uniform_int_distribution<size_t>(0, len-1))
+{
+    const size_t n = weights.size();
+
+    if(0.0 == precalculated_sum)
+        precalculated_sum = sum(weights);
+
+    double scaling_factor = static_cast<double>(n) / precalculated_sum;
+
+    // TODO: replace with arrays if moar performance is ever needed
+    std::vector<std::pair<size_t, double> > large;
+    std::vector<std::pair<size_t, double> > small;
+    large.reserve(n);
+    small.reserve(n);
+
+    for(size_t idx = 0; idx < n; idx++)
+    {
+        double np_i = weights[idx] * scaling_factor;
+
+        if(np_i >= 1.0)
+            large.emplace_back(idx, np_i);
+        else
+            small.emplace_back(idx, np_i);
+    }
+
+    while(small.size() > 0 and large.size() > 0)
+    {
+        auto& [small_idx, small_p] = small[small.size()-1];
+        auto& [large_idx, large_p] = large[large.size()-1];
+
+        alias_probs[small_idx] = small_p;
+        alias_idxes[small_idx] = large_idx;
+
+        large_p = (large_p + small_p) - 1.0;
+
+        if(large_p < 1.0)
+        {
+            small_idx = large_idx;
+            small_p = large_p;
+            large.pop_back();
+        }
+        else
+            small.pop_back();
+    }
+
+    for(auto pair : large)
+        alias_probs[pair.first] = 2.0;
+
+    for(auto pair : small)
+        alias_probs[pair.first] = 2.0;
+}
+
+void AliasSampler::print()
+{
+    for(size_t idx =0; idx < len; idx++)
+    {
+        std::cout << idx << '\t' << alias_probs[idx] << '\t';
+        if(alias_probs[idx] < 1.0)
+            std::cout << alias_idxes[idx];
+        std::cout << std::endl;
+    }
+}
 
 NonReplacingSampler::NonReplacingSampler(size_t _n) :
 n(_n),

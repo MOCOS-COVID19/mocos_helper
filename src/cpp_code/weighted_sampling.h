@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <vector>
 #include <unordered_map>
+#include <memory>
 #include "platform.h"
 
 class Sampler final
@@ -24,6 +25,31 @@ class Sampler final
     MOCOS_FORCE_INLINE size_t index() const { return idx; };
 
     bool advanceToNextConfiguration();
+};
+
+
+class AliasSampler final
+{
+    const size_t len;
+    const std::unique_ptr<double[]> alias_probs;
+    const std::unique_ptr<size_t[]> alias_idxes;
+    std::uniform_int_distribution<size_t> UIgen;
+
+public:
+    AliasSampler(const std::vector<double>& weights, double precalculated_sum = 0.0);
+
+    size_t gen()
+    {
+        size_t idx = UIgen(random_gen);
+        if(alias_probs[idx] >= 1.0)
+            return idx;
+        if(stdunif(random_gen) < alias_probs[idx])
+            return idx;
+        else
+            return alias_idxes[idx];
+    }
+
+    void print();
 };
 
 

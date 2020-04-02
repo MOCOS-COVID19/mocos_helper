@@ -20,6 +20,7 @@ from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed, rand_stdunif, ra
                       rand_uniform, NonReplacingSampler, OnesVector, rand_gamma
 from cppyy.gbl import randint as cpp_randint
 from cppyy.gbl import rand_lognormal as cpp_lognormal
+from cppyy.gbl import AliasSampler as AliasSamplerCpp
 
 def seed(seed):
     mocos_seed(int(seed))
@@ -45,6 +46,12 @@ def poisson(lam):
 
 def uniform(low, high):
     return rand_uniform(low, high)
+
+def AliasSampler(weights):
+    if type(weights) != std.vector("double"):
+        weights = std.vector("double")(weights)
+    return AliasSamplerCpp(weights)
+
 
 def sample_with_replacement(weights, to_sample):
     '''Weighted sampling with replacement
