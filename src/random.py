@@ -21,6 +21,7 @@ from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed, rand_stdunif, ra
 from cppyy.gbl import randint as cpp_randint
 from cppyy.gbl import rand_lognormal as cpp_lognormal
 from cppyy.gbl import AliasSampler as AliasSamplerCpp
+from cppyy.gbl import AgeDependentFriendSampler as AgeDependentFriendSamplerCpp
 
 def seed(seed):
     mocos_seed(int(seed))
@@ -52,6 +53,20 @@ def AliasSampler(weights):
         weights = std.vector("double")(weights)
     return AliasSamplerCpp(weights)
 
+def vd(L):
+    if type(L) != std.vector("double"):
+        return std.vector("double")(weights)
+    else:
+        return L
+
+def vi(L):
+    if type(L) != std.vector("size_t"):
+        return std.vector("size_t")(weights)
+    else:
+        return L
+
+def AgeDependentFriendSampler(csv_indices, ages, genders, social_competences, alpha = 0.75, beta = 1.6):
+    return AgeDependentFriendSampler(vi(csv_indices), vi(ages), vi(genders), vd(social_competences), float(alpha), float(beta))
 
 def sample_with_replacement(weights, to_sample):
     '''Weighted sampling with replacement

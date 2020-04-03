@@ -31,8 +31,8 @@ class Sampler final
 class AliasSampler final
 {
     const size_t len;
-    const std::unique_ptr<double[]> alias_probs;
-    const std::unique_ptr<size_t[]> alias_idxes;
+    const std::shared_ptr<double[]> alias_probs; // Not unique_ptr because we want this to be copy-constructible
+    const std::shared_ptr<size_t[]> alias_idxes; // As above
     std::uniform_int_distribution<size_t> UIgen;
 
 public:

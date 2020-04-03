@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include "weighted_sampling.h"
 
 static double inline sum(const std::vector<double>& V)
@@ -100,6 +101,9 @@ alias_idxes(new size_t[len]),
 UIgen(std::uniform_int_distribution<size_t>(0, len-1))
 {
     const size_t n = weights.size();
+
+    if(n == 0)
+        return; // Calling gen() will result in undefined behaviour
 
     if(0.0 == precalculated_sum)
         precalculated_sum = sum(weights);
