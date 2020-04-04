@@ -6,11 +6,11 @@ import platform
 
 # Okay, we need to check if someone perhaps did already load the code...
 try:
-    from cppyy.gbl import AgeDependentFriendSampler as AgeDependentFriendSamplerCpp
+    from cppyy.gbl import AliasSampler as AliasSamplerCpp
 except ImportError:
     # If not, load the code and try again
     cppyy.cppdef("""#include "{0}" """.format(pkg_resources.resource_filename("mocos_helper", "cpp_code/unity_build.cpp")))
-    from cppyy.gbl import AgeDependentFriendSampler as AgeDependentFriendSamplerCpp
+    from cppyy.gbl import AliasSampler as AliasSamplerCpp
 
 from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed, rand_stdunif, rand_lognormal, rand_exponential_beta, rand_poisson, \
                       rand_uniform, NonReplacingSampler, OnesVector, rand_gamma
