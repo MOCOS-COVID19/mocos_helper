@@ -36,7 +36,6 @@ MOCOS_FORCE_INLINE double AgeDependentFriendSampler::phi(double a)
 
 MOCOS_FORCE_INLINE double AgeDependentFriendSampler::g(size_t a1, size_t a2)
 {
-    // The h[a1] and exp(da1) parts could be factored out. Later, when we check that everything works okay.
     double da1 = static_cast<double>(a1);
     double da2 = static_cast<double>(a2);
 

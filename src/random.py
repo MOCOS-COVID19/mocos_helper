@@ -3,25 +3,20 @@ import cppyy
 
 import platform
 
-if False:
-    cppyy.cppdef(
-    """
-    #define MOCOS_CPPYY
-    #include "{0}"
-    """.format(
-    pkg_resources.resource_filename("mocos_helper", "cpp_code/weighted_sampling.h"),
-    ))
 
-    cppyy.load_library(pkg_resources.resource_filename("mocos_helper", "cpp_code/libMocosHelper.so"))
-else:
+# Okay, we need to check if someone perhaps did already load the code...
+try:
+    from cppyy.gbl import AgeDependentFriendSampler as AgeDependentFriendSamplerCpp
+except ImportError:
+    # If not, load the code and try again
     cppyy.cppdef("""#include "{0}" """.format(pkg_resources.resource_filename("mocos_helper", "cpp_code/unity_build.cpp")))
+    from cppyy.gbl import AgeDependentFriendSampler as AgeDependentFriendSamplerCpp
 
 from cppyy.gbl import Sampler, std, ShuffledSample, mocos_seed, rand_stdunif, rand_lognormal, rand_exponential_beta, rand_poisson, \
                       rand_uniform, NonReplacingSampler, OnesVector, rand_gamma
 from cppyy.gbl import randint as cpp_randint
 from cppyy.gbl import rand_lognormal as cpp_lognormal
 from cppyy.gbl import AliasSampler as AliasSamplerCpp
-from cppyy.gbl import AgeDependentFriendSampler as AgeDependentFriendSamplerCpp
 
 def seed(seed):
     mocos_seed(int(seed))
