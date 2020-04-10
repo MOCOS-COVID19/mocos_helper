@@ -31,8 +31,8 @@ class Sampler final
 class AliasSampler final
 {
     const size_t len;
-    const std::shared_ptr<double[]> alias_probs; // Not unique_ptr because we want this to be copy-constructible
-    const std::shared_ptr<size_t[]> alias_idxes; // As above
+    std::vector<double> alias_probs;
+    std::vector<size_t> alias_idxes;
     std::uniform_int_distribution<size_t> UIgen;
 
 public:
@@ -55,7 +55,6 @@ public:
 
 class NonReplacingSampler final
 {
-    const size_t n;
     size_t last_idx;
     std::unordered_map<size_t, size_t> replacements;
 

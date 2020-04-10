@@ -96,8 +96,6 @@ bool Sampler::advanceToNextConfiguration()
 
 AliasSampler::AliasSampler(const std::vector<double>& weights, double precalculated_sum) : 
 len(weights.size()),
-alias_probs(new double[len]),
-alias_idxes(new size_t[len]),
 UIgen(std::uniform_int_distribution<size_t>(0, len-1))
 {
     const size_t n = weights.size();
@@ -126,10 +124,15 @@ UIgen(std::uniform_int_distribution<size_t>(0, len-1))
             small.emplace_back(idx, np_i);
     }
 
+    alias_probs.resize(n);
+    alias_idxes.resize(n);
+
     while(small.size() > 0 and large.size() > 0)
     {
-        auto& [small_idx, small_p] = small[small.size()-1];
-        auto& [large_idx, large_p] = large[large.size()-1];
+        size_t& small_idx = small[small.size()-1].first;
+        double& small_p = small[small.size()-1].second;
+        size_t& large_idx = large[large.size()-1].first;
+        double& large_p = large[large.size()-1].second;
 
         alias_probs[small_idx] = small_p;
         alias_idxes[small_idx] = large_idx;
@@ -165,7 +168,6 @@ void AliasSampler::print()
 }
 
 NonReplacingSampler::NonReplacingSampler(size_t _n) :
-n(_n),
 last_idx(_n)
 {}
 
